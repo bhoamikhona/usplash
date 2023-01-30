@@ -218,3 +218,10 @@ body {
     column-width: 100%;
   }
 }
+
+/***LOADING***/
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+}
