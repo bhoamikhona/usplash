@@ -2,20 +2,23 @@ import React from "react";
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
+  // Route,
   Outlet,
 } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import Photo from "./pages/Photo";
+// import Photo from "./pages/Photo";
 import Navbar from "./components/Navbar";
+import Searchbar from "./components/Searchbar";
+import Gallery from "./components/Gallery";
 import "./style.css";
 
 const Layout = () => {
   return (
     <>
       <Navbar />
+      <Gallery />
       <Outlet />
     </>
   );
@@ -29,14 +32,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        path: "/photo/:id",
-        element: <Photo />,
       },
     ],
   },

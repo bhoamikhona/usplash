@@ -18,7 +18,12 @@ function Navbar() {
             </li>
             <li className="nav-link">
               <a href="/login" className="nav-link-a">
-                Logout
+                Login
+              </a>
+            </li>
+            <li className="nav-link">
+              <a href="/register" className="nav-link-a">
+                Register
               </a>
             </li>
           </ul>
