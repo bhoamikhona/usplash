@@ -8,9 +8,7 @@ import {
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-// import Photo from "./pages/Photo";
 import Navbar from "./components/Navbar";
-import Searchbar from "./components/Searchbar";
 import Gallery from "./components/Gallery";
 import "./style.css";
 

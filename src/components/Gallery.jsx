@@ -1,37 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import Photo from "./Photo";
-import Searchbar from "./Searchbar";
 import { FaSearch } from "react-icons/fa";
-
-// This was used to design the layout
-// const tempImages = [
-//   {
-//     id: 1,
-//     imgSrc:
-//       "https://images.unsplash.com/photo-1674909073807-a5da838ac031?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=985&q=80",
-//   },
-//   {
-//     id: 2,
-//     imgSrc:
-//       "https://images.unsplash.com/photo-1675018313686-797d5c072d12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-//   },
-//   {
-//     id: 3,
-//     imgSrc:
-//       "https://images.unsplash.com/photo-1674796941974-9120fdf15205?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=741&q=80",
-//   },
-//   {
-//     id: 4,
-//     imgSrc:
-//       "https://images.unsplash.com/photo-1662567239284-e7b01bd4f2da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-//   },
-//   {
-//     id: 5,
-//     imgSrc:
-//       "https://images.unsplash.com/photo-1674906027463-881f2c8330a4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
-//   },
-// ];
 
 // Initial Values
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
@@ -53,7 +23,9 @@ const Gallery = () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      setPhotos(data);
+      setPhotos((oldPhotos) => {
+        return [...oldPhotos, ...data];
+      });
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -64,6 +36,21 @@ const Gallery = () => {
   // use effect to fetch images
   useEffect(() => {
     fetchImages();
+  }, [page]);
+
+  // use effect for infinite scroll
+  useEffect(() => {
+    const event = window.addEventListener("scroll", () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 2
+      ) {
+        setPage((oldPage) => {
+          return oldPage + 1;
+        });
+      }
+    });
+    return () => window.removeEventListener("scroll", event);
   }, []);
 
   // Handle Search Query
